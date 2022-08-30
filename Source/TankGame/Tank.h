@@ -32,9 +32,9 @@ private:
 	 * @Values for Movement configuration
 	*/
 	UPROPERTY(EditAnywhere, Category = "Movement")
-		float Speed = 400.f;
+		float Speed = 900.f;
 	UPROPERTY(EditAnywhere, Category = "Movement")
-		float TurnRate = 400.f;
+		float TurnRate = 120.f;
 
 	UPROPERTY(EditAnywhere, Category = "")
 		APlayerController* PlayerControllerReference;

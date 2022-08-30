@@ -25,7 +25,7 @@ private:
 	class ATank* Tank;
 
 	UPROPERTY(EditAnywhere, Category = "CombatSettings")
-		float FireRange = 400.f;
+		float FireRange = 1200.f;
 
 	/**
 	 * @brief Check if target is valid and call Fire() function if valid

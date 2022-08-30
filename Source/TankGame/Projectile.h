@@ -16,6 +16,16 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Mesh")
 		UStaticMeshComponent* ProjectileMesh;
 
+	//Setting movement component for projectile, forward declaring to avoid using includes in header file
+	UPROPERTY(VisibleAnywhere,Category = "Combat")
+		class UProjectileMovementComponent* ProjectileMovementComponent;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+		float Damage = 50.f;
+
+	UFUNCTION()
+	void OnHitEvent(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalInpulse, const FHitResult& Hit);
+
 public:
 	// Sets default values for this actor's properties
 	AProjectile();
