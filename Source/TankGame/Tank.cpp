@@ -28,7 +28,7 @@ void ATank::BeginPlay()
 	Super::BeginPlay();
 
 	//Casting AController to APlayerController
-	PlayerControllerReference = Cast<APlayerController>(GetController());
+	TankPlayerController = Cast<APlayerController>(GetController());
 
 }
 /**
@@ -82,14 +82,31 @@ void ATank::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	//Checking if PlayerControllerREference is valid(!= nullptr)
-	if (PlayerControllerReference)
+	if (TankPlayerController)
 	{
 		FHitResult HitResult;
-		PlayerControllerReference->GetHitResultUnderCursor(
+		TankPlayerController->GetHitResultUnderCursor(
 			ECollisionChannel::ECC_Visibility,
 			false,
 			HitResult);
 
 		TurretRotation(HitResult.ImpactPoint);
 	}
+}
+
+void ATank::HandleDestruction()
+{
+	Super::HandleDestruction();
+	
+	SetActorHiddenInGame(true);
+	SetActorTickEnabled(false);
+}
+
+/**
+ * @brief Getter for TankPlayerController variable
+ * @return  TankPlayerController
+*/
+APlayerController* ATank::GetTankPlayerController() const
+{
+	return TankPlayerController;
 }

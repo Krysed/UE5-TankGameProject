@@ -34,4 +34,5 @@ private:
 	UFUNCTION()
 	void TakenDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,class AController* Inducer, AActor* DamageCauser);
 		
+	class ATankGameGameMode* TankGameGameMode;
 };

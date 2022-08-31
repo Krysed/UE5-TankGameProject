@@ -33,6 +33,12 @@ ABasePawn::ABasePawn()
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("ProjectileSpawnPoint"));
 	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
 }
+
+void ABasePawn::HandleDestruction()
+{
+	
+}
+
 /**
  * @brief Handling Turret rotation
  * @param LookAtTarget = location of mouse coursor

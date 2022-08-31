@@ -15,6 +15,11 @@ void ATurret::Tick(float DeltaTime)
 		TurretRotation(Tank->GetActorLocation());
 	}
 }
+void ATurret::HandleDestruction()
+{
+	Super::HandleDestruction();
+	Destroy();
+}
 
 //Called upon start of the game
 void ATurret::BeginPlay()

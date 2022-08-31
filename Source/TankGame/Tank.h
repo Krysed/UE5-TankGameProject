@@ -37,7 +37,7 @@ private:
 		float TurnRate = 120.f;
 
 	UPROPERTY(EditAnywhere, Category = "")
-		APlayerController* PlayerControllerReference;
+		APlayerController* TankPlayerController;
 
 	/**
 	 * @Move function
@@ -64,5 +64,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void HandleDestruction();
 
+	//Getter for TankPlayerController variable
+	APlayerController* GetTankPlayerController() const;
 };

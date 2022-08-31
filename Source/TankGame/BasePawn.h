@@ -15,6 +15,9 @@ public:
 	// Sets default values for this pawn's properties
 	ABasePawn();
 
+	//Calling it from the game mode so it needs to be in public section
+	void HandleDestruction();
+
 private:
 	/**
 	 * Setting Up Components trough C++ side

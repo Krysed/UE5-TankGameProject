@@ -13,5 +13,18 @@ UCLASS()
 class TANKGAME_API ATankGameGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
+private:
+	//forward declaring ATank variable;
+	class ATank* Tank;
+
+protected:
+	virtual void BeginPlay() override;
+
+public:
+	/**
+	 * @brief Handling Death
+	 * @param DeadActor = Actor that will be dead
+	*/
+	void ActorDead(AActor* DeadActor);
 };
