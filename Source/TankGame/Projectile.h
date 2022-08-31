@@ -22,6 +22,22 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 		float Damage = 50.f;
+	
+	//Forward declaring SFX for projectile
+	UPROPERTY(EditAnywhere, Category = "SFX")
+		class UParticleSystem* HitParticles;
+
+	UPROPERTY(EditAnywhere, Category = "SFX")
+		class UParticleSystemComponent* TrailPatricles;
+
+	UPROPERTY(EditAnywhere, Category = "SFX")
+		class USoundBase* LaunchSound;
+	
+	UPROPERTY(EditAnywhere, Category = "SFX")
+		USoundBase* HitSound;
+	
+	UPROPERTY(EditAnywhere, Category = "SFX")
+	TSubclassOf<class UCameraShakeBase>OnHitCameraShake;
 
 	UFUNCTION()
 	void OnHitEvent(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalInpulse, const FHitResult& Hit);

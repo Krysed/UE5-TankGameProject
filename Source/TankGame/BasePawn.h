@@ -18,6 +18,18 @@ public:
 	//Calling it from the game mode so it needs to be in public section
 	void HandleDestruction();
 
+	/**
+	 * @brief Setting SFX
+	*/
+	UPROPERTY(EditAnywhere, Category = "SFX")
+		class UParticleSystem* DeathParticles;
+
+	UPROPERTY(EditAnywhere, Category = "SFX")
+		class USoundBase* DeathSound;
+	
+	UPROPERTY(EditAnywhere, Category = "SFX")
+		TSubclassOf<class UCameraShakeBase> DeathCameraShake;
+
 private:
 	/**
 	 * Setting Up Components trough C++ side
@@ -33,7 +45,6 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Components")
 		USceneComponent* ProjectileSpawnPoint;	
-	
 
 	UPROPERTY(EditDefaultsOnly, Category = "Combat")
 		TSubclassOf<class AProjectile> ProjectileClass;

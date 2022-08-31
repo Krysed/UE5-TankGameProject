@@ -5,6 +5,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Projectile.h"
+#include "Particles/ParticleSystem.h"
 
 // Sets default values
 ABasePawn::ABasePawn()
@@ -34,9 +35,26 @@ ABasePawn::ABasePawn()
 	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
 }
 
+/**
+ * @brief SFX when Pawn is Destroyed
+*/
 void ABasePawn::HandleDestruction()
 {
-	
+	//Show DeathParticles if valid
+	if (DeathParticles)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(this, DeathParticles, GetActorLocation(), GetActorRotation());
+	}
+	//Play DeathSound if valid
+	if (DeathSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
+	}
+	//Play Camera Shake if valid
+	if (DeathCameraShake)
+	{
+		GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(DeathCameraShake);
+	}
 }
 
 /**
@@ -63,6 +81,9 @@ void ABasePawn::TurretRotation(FVector LookAtTarget)
 	);
 }
 
+/**
+ * @brief Handling Fire Logic
+*/
 void ABasePawn::Fire()
 {
 	//Geting Location and rotation of spawn point to spawn projectile facing the right direction

@@ -68,4 +68,6 @@ public:
 
 	//Getter for TankPlayerController variable
 	APlayerController* GetTankPlayerController() const;
+
+	bool bAlive = true;
 };

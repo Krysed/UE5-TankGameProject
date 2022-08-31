@@ -17,10 +17,16 @@ void ATankGameGameMode::ActorDead(AActor* DeadActor)
 		{
 			TankGamePlayerController->SetPlayerEnabledState(false);
 		}
+		GameOver(false);
 	}
 	else if (ATurret* DestroyedTurret = Cast<ATurret>(DeadActor))
 	{
 		DestroyedTurret->HandleDestruction();
+		TargetTurrets--;
+		if (TargetTurrets == 0)
+		{
+			GameOver(true);
+		}
 	}
 }
 
@@ -29,6 +35,9 @@ void ATankGameGameMode::ActorDead(AActor* DeadActor)
 */
 void ATankGameGameMode::HandleGameStart()
 {
+	//Set Number of Turrets to Destroy
+	TargetTurrets = GetTargetTurretCount();
+
 	//Get PlayerPawn
 	Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
 
@@ -63,4 +72,16 @@ void ATankGameGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	HandleGameStart();
+}
+
+/**
+ * @brief returns all actors of Turret class
+ * @return number of placer Turrets
+*/
+int32 ATankGameGameMode::GetTargetTurretCount()
+{
+	TArray<AActor*> Turrets;
+
+	UGameplayStatics::GetAllActorsOfClass(this, ATurret::StaticClass(),Turrets);
+	return Turrets.Num();
 }

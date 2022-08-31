@@ -21,6 +21,14 @@ private:
 	//forward declaring ATankGamePlayerController variable
 	class ATankGamePlayerController* TankGamePlayerController;
 
+	//number of turrets variable to destroy in each level
+	int32 TargetTurrets = 0;
+	/**
+	 * @brief get all turret places in level
+	 * @return number of towers 
+	*/
+	int32 GetTargetTurretCount();
+
 	float StartGameDelay = 3.f;
 
 	void HandleGameStart();
@@ -29,7 +37,10 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void StartGame();
+		void StartGame();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void GameOver(bool bWonGame);
 
 public:
 	/**

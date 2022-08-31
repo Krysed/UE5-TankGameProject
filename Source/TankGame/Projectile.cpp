@@ -5,6 +5,8 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "GameFramework/DamageType.h"
 #include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystemComponent.h"
+
 
 // Sets default values
 AProjectile::AProjectile()
@@ -20,6 +22,8 @@ AProjectile::AProjectile()
 	//seting default values for speed of the launched projectile
 	ProjectileMovementComponent->MaxSpeed = 1700.f;
 	ProjectileMovementComponent->InitialSpeed = 1700.f;
+	TrailPatricles = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Trail"));
+	TrailPatricles->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -29,6 +33,17 @@ void AProjectile::BeginPlay()
 
 	//Binding Function to mesh
 	ProjectileMesh->OnComponentHit.AddDynamic(this,&AProjectile::OnHitEvent);
+	
+	//Play LaunchSound if valid
+	if (LaunchSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, LaunchSound, GetActorLocation());
+	}
+	//play CameraShake if valid
+	if (OnHitCameraShake)
+	{
+		GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(OnHitCameraShake);
+	}
 }
 
 // Called every frame
@@ -52,7 +67,7 @@ void AProjectile::OnHitEvent(UPrimitiveComponent* HitComp,
 	if (MyOwner)
 	{
 		AController* MyOwnerInstigator = MyOwner->GetInstigatorController();
-		
+
 		//DamageTypeClass for ApplyDamage event
 		UClass* DamageTypeClass = UDamageType::StaticClass();
 
@@ -60,9 +75,20 @@ void AProjectile::OnHitEvent(UPrimitiveComponent* HitComp,
 		{
 			//Generating Damage event
 			UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwnerInstigator, this, DamageTypeClass);
-
-			//Destroying projectile after dealing damage
-			Destroy();
+			
+			//Spawning SFX if HitParticles is valid
+			if (HitParticles) 
+			{
+				UGameplayStatics::SpawnEmitterAtLocation(this, HitParticles, GetActorLocation(), GetActorRotation());
+			}
+			
+			//playing Hit Sound if valid
+			if (HitSound)
+			{
+				UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
+			}
 		}
+		//Destroying projectile after dealing damage
+		Destroy();
 	}
 }

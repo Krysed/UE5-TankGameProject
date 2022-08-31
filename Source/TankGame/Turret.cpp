@@ -44,9 +44,12 @@ void ATurret::BeginPlay()
 */
 void ATurret::CheckFireCondition()
 {
-	if (InFireRangeWithTank())
+	if (Tank)
 	{
-		Fire();
+		if (InFireRangeWithTank() && Tank->bAlive)
+		{
+			Fire();
+		}
 	}
 }
 
