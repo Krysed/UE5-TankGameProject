@@ -2,18 +2,20 @@
 
 #include "Tank.h"
 #include "Turret.h"
+#include "TankGamePlayerController.h"
 #include "TankGameGameMode.h"
 #include "Kismet/GameplayStatics.h"
+
 
 void ATankGameGameMode::ActorDead(AActor* DeadActor)
 {
 	if (DeadActor == Tank)
 	{
 		Tank->HandleDestruction();
-		if (Tank->GetTankPlayerController())
+
+		if (TankGamePlayerController)
 		{
-			Tank->DisableInput(Tank->GetTankPlayerController());
-			Tank->GetTankPlayerController()->bShowMouseCursor = false;
+			TankGamePlayerController->SetPlayerEnabledState(false);
 		}
 	}
 	else if (ATurret* DestroyedTurret = Cast<ATurret>(DeadActor))
@@ -22,10 +24,43 @@ void ATankGameGameMode::ActorDead(AActor* DeadActor)
 	}
 }
 
+/**
+ * @brief Binding Start game function to timer delegate
+*/
+void ATankGameGameMode::HandleGameStart()
+{
+	//Get PlayerPawn
+	Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
+
+	//Set player controller pointer
+	TankGamePlayerController = Cast<ATankGamePlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+
+	StartGame();
+
+	//if TankGamePlayerControlleris valid at begining of the game disabling input
+	if (TankGamePlayerController)
+	{
+		TankGamePlayerController->SetPlayerEnabledState(false);
+
+		FTimerHandle PlayerEnableTimerHandle;
+		FTimerDelegate PlayerEnableTimerDelegate = FTimerDelegate::CreateUObject(TankGamePlayerController, 
+																				&ATankGamePlayerController::SetPlayerEnabledState, 
+																				true
+		);
+		
+		//Setting up Delay before player can control the pawn
+		GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle, 
+										PlayerEnableTimerDelegate, 
+										StartGameDelay, 
+										false
+		);
+	}
+}
+
+//Called upon Game start
 void ATankGameGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//Get PlayerPawn
-	Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
+	HandleGameStart();
 }

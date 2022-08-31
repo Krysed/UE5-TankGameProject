@@ -18,8 +18,18 @@ private:
 	//forward declaring ATank variable;
 	class ATank* Tank;
 
+	//forward declaring ATankGamePlayerController variable
+	class ATankGamePlayerController* TankGamePlayerController;
+
+	float StartGameDelay = 3.f;
+
+	void HandleGameStart();
+
 protected:
 	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartGame();
 
 public:
 	/**
