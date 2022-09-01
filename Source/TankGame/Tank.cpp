@@ -91,7 +91,7 @@ void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//Checking if PlayerControllerREference is valid(!= nullptr)
+	//Checking if PlayerControllerReference is valid(!= nullptr)
 	if (TankPlayerController)
 	{
 		FHitResult HitResult;
