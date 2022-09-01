@@ -29,6 +29,16 @@ private:
 		class UCameraComponent* Camera;
 
 	/**
+	 * Components for HUD MiniMap
+	*/
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		USpringArmComponent* MiniMapSpringArm;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		class USceneCaptureComponent2D* MiniMapCamera;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UStaticMeshComponent* MiniMapArrow;
+
+	/**
 	 * @Values for Movement configuration
 	*/
 	UPROPERTY(EditAnywhere, Category = "Movement")

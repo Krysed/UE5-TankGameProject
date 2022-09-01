@@ -5,6 +5,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/SceneCaptureComponent2D.h"
 
 /**
  * A Tank Class Constructor Definition
@@ -19,6 +20,15 @@ ATank::ATank()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
 
+	//Serring up MiniMap components
+	MiniMapSpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("MiniMapSpringArm"));
+	MiniMapSpringArm->SetupAttachment(RootComponent);
+
+	MiniMapCamera = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("MiniMapCamera"));
+	MiniMapCamera->SetupAttachment(MiniMapSpringArm);
+
+	MiniMapArrow = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MiniMapArrow"));
+	MiniMapArrow->SetupAttachment(RootComponent);
 }
 /**
  * @brief Called at Start of the game or when spawned
