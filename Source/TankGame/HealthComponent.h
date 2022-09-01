@@ -31,6 +31,9 @@ private:
 	//health will be set in BeginPlay() function
 	float Health = 0.f;
 
+	UFUNCTION(BlueprintPure)
+		float GetHealthPercent() const;
+
 	UFUNCTION()
 	void TakenDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,class AController* Inducer, AActor* DamageCauser);
 		

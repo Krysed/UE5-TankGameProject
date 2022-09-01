@@ -50,3 +50,12 @@ void UHealthComponent::TakenDamage(AActor* DamagedActor, float Damage, const UDa
 		TankGameGameMode->ActorDead(DamagedActor);
 	}
 }
+
+/**
+ * @brief returns current health value
+ * @return current health 
+*/
+float UHealthComponent::GetHealthPercent() const
+{
+	return Health / MaxHealth;
+}
