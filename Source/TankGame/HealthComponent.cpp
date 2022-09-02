@@ -6,6 +6,7 @@
 #include "TankGameGameMode.h"
 #include "Kismet/GameplayStatics.h"
 #include "HealthPickup.h"
+#include "Mine.h"
 
 // Sets default values for this component's properties
 UHealthComponent::UHealthComponent()
@@ -70,4 +71,11 @@ void  UHealthComponent::HealOnOverlap()
 	{
 		Health = MaxHealth;
 	}
+}
+/**
+* @brief Damage target when is within range, called in blueprints
+*/
+void UHealthComponent::DamageOnOverlap(float Damage)
+{
+	Health -= Damage;
 }

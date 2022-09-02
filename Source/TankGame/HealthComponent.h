@@ -28,18 +28,21 @@ public:
 private:
 
 	UPROPERTY(EditAnywhere)
-	float MaxHealth = 100.f;
+		float MaxHealth = 100.f;
 	//health will be set in BeginPlay() function
 	float Health = 0.f;
 
 	UFUNCTION(BlueprintPure)
 		float GetHealthPercent() const;
 	
+	//Functions called in blueprints
 	UFUNCTION(BlueprintCallable)
 		void HealOnOverlap();
+	UFUNCTION(BlueprintCallable)
+		void DamageOnOverlap(float Damage);
 
 	UFUNCTION()
-	void TakenDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,class AController* Inducer, AActor* DamageCauser);
+		void TakenDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,class AController* Inducer, AActor* DamageCauser);
 		
 	class ATankGameGameMode* TankGameGameMode;
 };

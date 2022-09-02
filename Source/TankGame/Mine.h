@@ -4,24 +4,26 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "PickupItem.generated.h"
+#include "Mine.generated.h"
 
 UCLASS()
-class TANKGAME_API APickupItem : public AActor
+class TANKGAME_API AMine : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	APickupItem();
+	AMine();
 
-	UPROPERTY(EditAnywhere, Category = "Components")
-		class USphereComponent* SphereCollision;
-	
-	//Rotation movement Component
-	UPROPERTY(EditAnywhere, Category = "Components")
-		class URotatingMovementComponent* RotationComponent;
-
+	/**
+	 * @brief setting landmine Components
+	*/
+	UPROPERTY(EditAnywhere, Category = "Componentes")
+		class UStaticMeshComponent* LandMineBase;
+	UPROPERTY(EditAnywhere, Category = "Componentes")
+		UStaticMeshComponent* LandMineLamp;
+	UPROPERTY(EditAnywhere, Category = "Componentes")
+		class USphereComponent* LandMineCollision;
 
 protected:
 	// Called when the game starts or when spawned
@@ -30,5 +32,5 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
- 
+
 };

@@ -16,8 +16,6 @@ APickupItem::APickupItem()
 	SphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollision"));
 	RootComponent = SphereCollision;
 
-	LightComponent = CreateDefaultSubobject<UPointLightComponent>(TEXT("LightComponent"));
-
 	RotationComponent = CreateDefaultSubobject<URotatingMovementComponent>(TEXT("RotatingComponent"));
 }
 
