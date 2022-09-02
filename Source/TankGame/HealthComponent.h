@@ -23,6 +23,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	
 
 private:
 
@@ -33,6 +34,9 @@ private:
 
 	UFUNCTION(BlueprintPure)
 		float GetHealthPercent() const;
+	
+	UFUNCTION(BlueprintCallable)
+		void HealOnOverlap();
 
 	UFUNCTION()
 	void TakenDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,class AController* Inducer, AActor* DamageCauser);

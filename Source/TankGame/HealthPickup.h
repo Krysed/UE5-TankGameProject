@@ -24,7 +24,8 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Components")
 		UStaticMeshComponent* HeartBar2;
+	
+	UPROPERTY(EditAnywhere, Category = "Components")
+		UStaticMeshComponent* HeartCircle;
 
-private:
-	void HealOnOverlap();
 };

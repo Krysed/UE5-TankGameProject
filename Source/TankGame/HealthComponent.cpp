@@ -5,6 +5,7 @@
 #include "GameFramework/Actor.h"
 #include "TankGameGameMode.h"
 #include "Kismet/GameplayStatics.h"
+#include "HealthPickup.h"
 
 // Sets default values for this component's properties
 UHealthComponent::UHealthComponent()
@@ -58,4 +59,15 @@ void UHealthComponent::TakenDamage(AActor* DamagedActor, float Damage, const UDa
 float UHealthComponent::GetHealthPercent() const
 {
 	return Health / MaxHealth;
+}
+
+/**
+* @brief Heal target when is within range, called in blueprints
+*/
+void  UHealthComponent::HealOnOverlap()
+{
+	if (Health < 100)
+	{
+		Health = MaxHealth;
+	}
 }
