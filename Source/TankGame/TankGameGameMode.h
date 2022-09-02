@@ -47,5 +47,6 @@ public:
 	 * @brief Handling Death
 	 * @param DeadActor = Actor that will be dead
 	*/
+	UFUNCTION(BlueprintCallable)
 	void ActorDead(AActor* DeadActor);
 };

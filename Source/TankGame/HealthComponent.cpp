@@ -78,4 +78,8 @@ void  UHealthComponent::HealOnOverlap()
 void UHealthComponent::DamageOnOverlap(float Damage)
 {
 	Health -= Damage;
+	//if (Health <= 0)
+	//{
+	//	Tank->HandleDistruction();
+	//}
 }
