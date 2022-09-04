@@ -1,7 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "Mine.h"
 #include "Tank.h"
 #include "Turret.h"
+#include "EnemyTank.h"
 #include "TankGamePlayerController.h"
 #include "TankGameGameMode.h"
 #include "Kismet/GameplayStatics.h"
@@ -27,6 +29,10 @@ void ATankGameGameMode::ActorDead(AActor* DeadActor)
 		{
 			GameOver(true);
 		}
+	}
+	else if (AEnemyTank* DestroyedEnemyTank = Cast<AEnemyTank>(DeadActor))
+	{
+		DestroyedEnemyTank->HandleDestruction();
 	}
 }
 

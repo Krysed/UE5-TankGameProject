@@ -37,8 +37,6 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		class UCapsuleComponent* CapsuleComp;
 
-	UPROPERTY(EditAnywhere, Category = "Components")
-		UStaticMeshComponent* BaseMesh;
 
 	UPROPERTY(EditAnywhere, Category = "Components")
 		UStaticMeshComponent* TurretMesh;
@@ -50,6 +48,10 @@ private:
 		TSubclassOf<class AProjectile> ProjectileClass;
 
 protected:
+
+	UPROPERTY(EditAnywhere, Category = "Components")
+		UStaticMeshComponent* BaseMesh;
+	
 	void TurretRotation(FVector LookAtTarget);
 
 	void Fire();
