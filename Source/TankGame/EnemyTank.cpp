@@ -18,12 +18,13 @@ void AEnemyTank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (InFireRangeWithTank())
+	if (InRangeToLookAtTank())
 	{
-		TurretRotation(Tank->GetActorLocation());
+		BaseRotation(Tank->GetActorLocation());
 		if (InFireRangeWithTank())
 		{
-			BaseRotation(Tank->GetActorLocation());
+			
+			TurretRotation(Tank->GetActorLocation());
 		}
 	}
 }
@@ -83,6 +84,22 @@ bool AEnemyTank::InFireRangeWithTank()
 	//when out of range or target is not valid
 	return false;
 }
+
+//Rotate Base of tank if Player is in range
+bool AEnemyTank::InRangeToLookAtTank()
+{
+	if (Tank)
+	{
+		//Distance (vector) between Turret and Tank
+		float Distance = FVector::Dist(GetActorLocation(), Tank->GetActorLocation());
+		if (Distance <= BaseRotateRange)
+		{
+			return true;
+		}
+	}
+	//when out of range or target is not valid
+	return false;
+}
 void AEnemyTank::BaseRotation(FVector LookAtTarget)
 {
 	FVector ToTargetVector = LookAtTarget - BaseMesh->GetComponentLocation();
@@ -92,7 +109,7 @@ void AEnemyTank::BaseRotation(FVector LookAtTarget)
 		0.f								//Roll	
 	);
 
-	//Rotating Turret
+	//Rotating Base
 	BaseMesh->SetWorldRotation(
 		FMath::RInterpTo(
 			BaseMesh->GetComponentRotation(),

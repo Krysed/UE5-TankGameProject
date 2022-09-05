@@ -28,8 +28,11 @@ private:
 	class ATank* Tank;
 
 	UPROPERTY(EditAnywhere, Category = "CombatSettings")
-		float FireRange = 2000.f;
+		float FireRange = 1500.f;
+	UPROPERTY(EditAnywhere, Category = "CombatSettings")
+		float BaseRotateRange = 4000.f;
 
+	//Movement Component
 	UPROPERTY(EditAnywhere, Category = "Movement")
 		class UFloatingPawnMovement* FloatingMovementComponent;
 
@@ -43,6 +46,7 @@ private:
 	 * @return true or false
 	*/
 	bool InFireRangeWithTank();
+	bool InRangeToLookAtTank();
 	//set tank rotation
 	void BaseRotation(FVector LookAtTarget);
 public:
@@ -51,5 +55,6 @@ public:
 
 	void HandleDestruction();
 
+	//Constructor
 	AEnemyTank();
 };
